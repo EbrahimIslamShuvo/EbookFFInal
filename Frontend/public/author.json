@@ -1,0 +1,16 @@
+[
+  {
+    "authorId": 1,
+    "name": "John Doe",
+    "bio": "Senior Frontend Engineer and author",
+    "image": "/authors/john.jpg",
+    "status": "active"
+  },
+  {
+    "authorId": 2,
+    "name": "Jane Smith",
+    "bio": "JavaScript expert and educator",
+    "image": "/authors/jane.jpg",
+    "status": "active"
+  }
+]

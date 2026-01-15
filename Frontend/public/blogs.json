@@ -1,0 +1,18 @@
+[
+  {
+    "blogId": 1,
+    "title": "Why Reading eBooks is the Future",
+    "shortdescription": "Digital reading is changing the world",
+    "longdescription": "eBooks are portable, affordable, and eco-friendly...",
+    "userId": 1,
+    "image": "/blogs/blog1.jpg"
+  },
+  {
+    "blogId": 2,
+    "title": "Top 5 Programming Books",
+    "shortdescription": "Best books for developers",
+    "longdescription": "Every developer should read these books...",
+    "userId": 2,
+    "image": "/blogs/blog2.jpg"
+  }
+]

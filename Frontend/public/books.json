@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "Learn React Easily",
+    "category_id": 3,
+    "author_id": 1,
+    "coverimage": "/covers/react.jpg",
+    "price": 350,
+    "language": "English",
+    "shortDescription": "Beginner friendly React guide",
+    "abstract": "This book covers React fundamentals with real-world examples.",
+    "sellingQuantity": 120,
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "name": "JavaScript Mastery",
+    "category_id": 3,
+    "author_id": 2,
+    "coverimage": "/covers/js.jpg",
+    "price": 300,
+    "language": "English",
+    "shortDescription": "Deep dive into JavaScript",
+    "abstract": "Advanced JavaScript concepts explained simply.",
+    "sellingQuantity": 200,
+    "status": "active"
+  }
+]
