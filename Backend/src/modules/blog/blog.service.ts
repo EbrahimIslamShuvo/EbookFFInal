@@ -67,6 +67,19 @@ export const getAllBlogsAdmin = asyncHandler(
   }
 );
 
+// 📘 get single blog by id
+const getBlogById = async (id: string) => {
+  const blog = await Blog.findById(id);
+
+  if (!blog) {
+    throw new ApiError(404, "Blog not found");
+  }
+
+  return blog;
+};
+
+
+
 
 export const BlogService = {
   createBlog,
@@ -76,5 +89,6 @@ export const BlogService = {
   toggleBlogStatus,
   deleteBlog,
   getBlogsByAuthor,
-  getAllBlogsAdmin
+  getAllBlogsAdmin,
+  getBlogById
 };

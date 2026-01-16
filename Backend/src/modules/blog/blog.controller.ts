@@ -68,3 +68,17 @@ export const deleteBlog = asyncHandler(
     res.json({ success: true });
   }
 );
+
+// 📘 PUBLIC → get single blog
+export const getSingleBlog = asyncHandler(
+  async (req: any, res: Response) => {
+    const blog = await BlogService.getBlogById(req.params.id);
+
+    res.json({
+      success: true,
+      data: blog,
+    });
+  }
+);
+
+

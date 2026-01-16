@@ -9,6 +9,7 @@ import {
   getBlogs,
   getAllBlogsAdmin,
   getMyBlogs,
+  getSingleBlog,
 } from "./blog.controller";
 
 const router = Router();
@@ -31,7 +32,6 @@ router.get(
   roleGuard("admin"),
   getAllBlogsAdmin
 );
-
 
 // 🔐 User + Author → create blog
 router.post(
@@ -63,5 +63,8 @@ router.delete(
   auth,
   deleteBlog
 );
+
+// 🌍 PUBLIC → single blog (⚠️ ALWAYS LAST)
+router.get("/:id", getSingleBlog);
 
 export default router;
