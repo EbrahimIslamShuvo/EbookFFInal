@@ -3,12 +3,33 @@ import { useNavigate } from "react-router-dom";
 const AuthorDashboard = () => {
   const navigate = useNavigate();
 
+  // 🔐 logged-in user info
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <div className="max-w-6xl mx-auto px-6 py-10">
-      <h1 className="text-2xl font-bold mb-6">
-        Author Dashboard
-      </h1>
 
+      {/* 👤 USER INFO HEADER */}
+      <div className="mb-8 border rounded-lg p-5 bg-gray-50">
+        <h1 className="text-2xl font-bold text-gray-800">
+          Author Dashboard
+        </h1>
+
+        {user && (
+          <div className="mt-2 text-sm text-gray-600">
+            <p>
+              <span className="font-medium">Name:</span>{" "}
+              {user.name}
+            </p>
+            <p>
+              <span className="font-medium">Email:</span>{" "}
+              {user.email}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* 📊 DASHBOARD CARDS */}
       <div className="grid md:grid-cols-2 gap-6">
 
         {/* 📚 My Library */}

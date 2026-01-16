@@ -19,7 +19,7 @@ const Cart = () => {
 
   // 🧮 Total price
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + Number(item.price),
+    (sum, item) => sum + Number(item.price || 0),
     0
   );
 
@@ -47,48 +47,65 @@ const Cart = () => {
 
       {/* Cart Items */}
       <div className="space-y-6">
-        {cartItems.map((book) => (
-          <div
-            key={book.id}
-            className="flex flex-col md:flex-row items-center gap-6 border-b pb-4"
-          >
-            {/* Image */}
-            <img
-              src={book.coverimage}
-              alt={book.name}
-              className="w-28 h-36 object-cover rounded"
-            />
+        {cartItems.map((book) => {
+          const bookId = book._id || book.id;
 
-            {/* Info */}
-            <div className="flex-1">
-              <h3 className="font-semibold text-lg">
-                {book.name}
-              </h3>
-              <p className="text-sm text-gray-500">
-                Language: {book.language}
-              </p>
-            </div>
+          const imageUrl = book.cover
+            ? book.cover.startsWith("http")
+              ? book.cover
+              : `http://localhost:3000${book.cover}`
+            : "https://via.placeholder.com/150x200?text=No+Image";
 
-            {/* Price */}
-            <p className="font-semibold text-[#3059b8]">
-              ৳ {book.price}
-            </p>
-
-            {/* Remove */}
-            <button
-              onClick={() => handleRemove(book.id)}
-              className="text-red-500 hover:underline"
+          return (
+            <div
+              key={bookId}
+              className="flex flex-col md:flex-row items-center gap-6 border-b pb-4"
             >
-              Remove
-            </button>
-          </div>
-        ))}
+              {/* Image */}
+              <img
+                src={imageUrl}
+                alt={book.title}
+                className="w-28 h-36 object-cover rounded"
+                onError={(e) => {
+                  e.target.src =
+                    "https://via.placeholder.com/150x200?text=No+Image";
+                }}
+              />
+
+              {/* Info */}
+              <div className="flex-1">
+                <h3 className="font-semibold text-lg">
+                  {book.title}
+                </h3>
+                <p className="text-sm text-gray-500">
+                  Category: {book.category}
+                </p>
+              </div>
+
+              {/* Price */}
+              <p className="font-semibold text-[#3059b8]">
+                ৳ {book.price}
+              </p>
+
+              {/* Remove */}
+              <button
+                onClick={() => handleRemove(bookId)}
+                className="text-red-500 hover:underline"
+              >
+                Remove
+              </button>
+            </div>
+          );
+        })}
       </div>
 
       {/* Summary */}
       <div className="mt-10 flex flex-col md:flex-row justify-between items-center gap-6">
         <p className="text-lg font-semibold">
-          Total: <span className="text-[#3059b8]">৳ {totalPrice}</span>
+          Total:{" "}
+          <span className="text-[#3059b8]">
+            ৳ {totalPrice}
+          </span>
         </p>
 
         <NavLink to="/checkout">

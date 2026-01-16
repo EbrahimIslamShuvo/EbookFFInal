@@ -61,6 +61,7 @@ const NewBook = () => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        
         <input
           name="title"
           placeholder="Book Title"
@@ -77,13 +78,25 @@ const NewBook = () => {
           required
         />
 
-        <input
+        {/* ✅ CATEGORY DROPDOWN */}
+        <select
           name="category"
-          placeholder="Category"
           className="border p-2 w-full"
+          value={form.category}
           onChange={handleChange}
           required
-        />
+        >
+          <option value="">Select Category</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Non-Fiction">Non-Fiction</option>
+          <option value="Biography & Memoir">Biography & Memoir</option>
+          <option value="Horror">Horror</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Romance">Romance</option>
+          <option value="Mystery & Thriller">Mystery & Thriller</option>
+          <option value="Sport">Sport</option>
+        </select>
 
         <input
           name="price"

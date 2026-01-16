@@ -5,12 +5,16 @@ const useBook = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // 🔹 fetch all active books
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/books`);
         const data = await res.json();
-        setBooks(data.data || []);
+
+        if (data.success) {
+          setBooks(data.data);
+        }
       } catch (error) {
         console.error("Failed to fetch books", error);
       } finally {
@@ -21,13 +25,18 @@ const useBook = () => {
     fetchBooks();
   }, []);
 
-  const getBookById = async (id) => {
-    const res = await fetch(`${API_BASE_URL}/books/${id}`);
-    const data = await res.json();
-    return data.data;
+  // 🔹 get single book from already loaded list
+  const getBookById = (id) => {
+    return books.find(
+      (book) => book._id === id || book.id === id
+    );
   };
 
-  return { books, loading, getBookById };
+  return {
+    books,
+    loading,
+    getBookById,
+  };
 };
 
 export default useBook;

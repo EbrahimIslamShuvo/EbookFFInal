@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       { path: "all-books", element: <AllBook /> },
       { path: "all-books/:id", element: <SingleBook /> },
       { path: "blogs", element: <Blog /> },
-      { path: "blogs/:id", element: <SingleBlog /> },
+      { path: "/blogs/:id", element: <SingleBlog /> },
       { path: "cart", element: <Cart /> },
       { path: "checkout", element: <Checkout /> },
       { path: "login", element: <Login /> },
