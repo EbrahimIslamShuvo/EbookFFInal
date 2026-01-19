@@ -7,82 +7,104 @@ const AuthorDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10">
+    <div className="max-w-7xl mx-auto px-6 py-12">
 
-      {/* 👤 USER INFO HEADER */}
-      <div className="mb-8 border rounded-lg p-5 bg-gray-50">
-        <h1 className="text-2xl font-bold text-gray-800">
-          Author Dashboard
+      {/* ===== AUTHOR HEADER ===== */}
+      <div className="relative mb-10 rounded-2xl p-6 
+                      bg-gradient-to-r from-[#0f766e] to-[#14b8a6] 
+                      text-white shadow-lg overflow-hidden">
+        <div className="absolute -top-10 -right-10 w-40 h-40 
+                        bg-white/10 rounded-full blur-2xl"></div>
+
+        <h1 className="text-3xl font-extrabold">
+          ✍️ Author Dashboard
         </h1>
 
         {user && (
-          <div className="mt-2 text-sm text-gray-600">
-            <p>
-              <span className="font-medium">Name:</span>{" "}
-              {user.name}
-            </p>
-            <p>
-              <span className="font-medium">Email:</span>{" "}
-              {user.email}
-            </p>
+          <div className="mt-4 grid sm:grid-cols-2 gap-4 text-sm">
+            <Info label="Name" value={user.name} />
+            <Info label="Email" value={user.email} />
           </div>
         )}
       </div>
 
-      {/* 📊 DASHBOARD CARDS */}
-      <div className="grid md:grid-cols-2 gap-6">
+      {/* ===== DASHBOARD CARDS ===== */}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        {/* 📚 My Library */}
-        <div className="border p-6 rounded">
-          <h2 className="font-semibold mb-2">📚 My Library</h2>
-          <p>Books you purchased</p>
-          <button
-            onClick={() => navigate("/dashboard/author/library")}
-            className="mt-3 text-[#3059b8]"
-          >
-            View Library
-          </button>
-        </div>
+        <AuthorCard
+          icon="📚"
+          title="My Library"
+          desc="Books you have purchased"
+          action="View Library →"
+          onClick={() => navigate("/dashboard/author/library")}
+        />
 
-        {/* 📖 My Books */}
-        <div className="border p-6 rounded">
-          <h2 className="font-semibold mb-2">📖 My Books</h2>
-          <p>Books you published (Pending / Active)</p>
-          <button
-            onClick={() => navigate("/dashboard/author/books")}
-            className="mt-3 text-[#3059b8]"
-          >
-            Manage Books
-          </button>
-        </div>
+        <AuthorCard
+          icon="📖"
+          title="My Books"
+          desc="Books you published (Pending / Active)"
+          action="Manage Books →"
+          onClick={() => navigate("/dashboard/author/books")}
+        />
 
-        {/* ➕ Add New Book */}
-        <div className="border p-6 rounded">
-          <h2 className="font-semibold mb-2">➕ Add New Book</h2>
-          <p>Create a new book</p>
-          <button
-            onClick={() => navigate("/dashboard/author/books/new")}
-            className="mt-3 text-[#3059b8]"
-          >
-            Add Book
-          </button>
-        </div>
+        <AuthorCard
+          icon="➕"
+          title="Add New Book"
+          desc="Create and publish a new book"
+          action="Add Book →"
+          onClick={() => navigate("/dashboard/author/books/new")}
+        />
 
-        {/* 📝 My Blogs */}
-        <div className="border p-6 rounded">
-          <h2 className="font-semibold mb-2">📝 My Blogs</h2>
-          <p>Blogs you created</p>
-          <button
-            onClick={() => navigate("/dashboard/author/blogs")}
-            className="mt-3 text-[#3059b8]"
-          >
-            View Blogs
-          </button>
-        </div>
+        <AuthorCard
+          icon="📝"
+          title="My Blogs"
+          desc="Blogs you have created"
+          action="View Blogs →"
+          onClick={() => navigate("/dashboard/author/blogs")}
+        />
 
       </div>
     </div>
   );
 };
+
+/* ===== REUSABLE UI COMPONENTS ===== */
+
+const Info = ({ label, value }) => (
+  <div className="bg-white/15 backdrop-blur-md rounded-lg p-3">
+    <p className="text-xs uppercase text-white/70">
+      {label}
+    </p>
+    <p className="font-semibold truncate">
+      {value}
+    </p>
+  </div>
+);
+
+const AuthorCard = ({ icon, title, desc, action, onClick }) => (
+  <div
+    onClick={onClick}
+    className="group cursor-pointer rounded-2xl p-8 bg-white
+               shadow-md hover:shadow-xl transition
+               transform hover:-translate-y-1 border border-gray-100"
+  >
+    <div className="text-4xl mb-4">
+      {icon}
+    </div>
+
+    <h2 className="text-xl font-bold mb-2 group-hover:text-teal-600 transition">
+      {title}
+    </h2>
+
+    <p className="text-gray-600 mb-6">
+      {desc}
+    </p>
+
+    <div className="text-teal-600 font-semibold 
+                    group-hover:translate-x-1 transition">
+      {action}
+    </div>
+  </div>
+);
 
 export default AuthorDashboard;

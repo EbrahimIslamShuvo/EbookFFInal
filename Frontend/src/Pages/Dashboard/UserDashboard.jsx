@@ -33,66 +33,91 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10">
+    <div className="max-w-7xl mx-auto px-6 py-12">
 
-      {/* 👤 USER INFO HEADER */}
-      <div className="mb-8 border rounded-lg p-5 bg-gray-50">
-        <h1 className="text-2xl font-bold text-gray-800">
-          User Dashboard
+      {/* ===== USER HEADER ===== */}
+      <div className="relative mb-10 rounded-2xl p-6 bg-gradient-to-r from-[#3059b8] to-[#5b8cff] text-white shadow-lg overflow-hidden">
+        <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+
+        <h1 className="text-3xl font-extrabold">
+          Welcome Back, <span className="font-bold uppercase">{user.name}</span>
         </h1>
 
         {user && (
-          <div className="mt-2 text-sm text-gray-600">
-            <p>
-              <span className="font-medium">Name:</span>{" "}
-              {user.name}
-            </p>
-            <p>
-              <span className="font-medium">Email:</span>{" "}
-              {user.email}
-            </p>
-            <p>
-              <span className="font-medium">Role:</span>{" "}
-              {user.role}
-            </p>
+          <div className="mt-4 grid sm:grid-cols-3 gap-4 text-sm">
+            <Info label="Name" value={user.name} />
+            <Info label="Email" value={user.email} />
+            <Info label="Role" value={user.role} />
           </div>
         )}
       </div>
 
-      {/* 📦 DASHBOARD ACTIONS */}
-      <div className="grid md:grid-cols-2 gap-6">
-        
+      {/* ===== DASHBOARD CARDS ===== */}
+      <div className="grid md:grid-cols-2 gap-8">
+
         {/* 📚 My Library */}
-        <div className="border p-6 rounded hover:shadow transition">
-          <h2 className="font-semibold mb-2">
-            📚 My Library
+        <DashboardCard>
+          <div className="text-4xl mb-4">📚</div>
+          <h2 className="text-xl font-bold mb-2">
+            My Library
           </h2>
-          <p>Your purchased books</p>
-          <button
-            onClick={() => navigate("/library")}
-            className="mt-3 text-[#3059b8]"
-          >
-            View Books
-          </button>
-        </div>
+          <p className="text-gray-600 mb-6">
+            Access all the books you have purchased in one place.
+          </p>
+          <ActionButton onClick={() => navigate("/library")}>
+            View Books →
+          </ActionButton>
+        </DashboardCard>
 
         {/* ✍️ Apply as Author */}
-        <div className="border p-6 rounded hover:shadow transition">
-          <h2 className="font-semibold mb-2">
-            ✍️ Apply as Author ....
+        <DashboardCard>
+          <div className="text-4xl mb-4">✍️</div>
+          <h2 className="text-xl font-bold mb-2">
+            Become an Author
           </h2>
-          <p>Become a content creator to make your world</p>
-          <button
-            onClick={applyAuthor}
-            className="mt-3 text-[#3059b8]"
-          >
-            Apply
-          </button>
-        </div>
+          <p className="text-gray-600 mb-6">
+            Share your knowledge, publish books, and inspire readers.
+          </p>
+          <ActionButton onClick={applyAuthor}>
+            Apply Now →
+          </ActionButton>
+        </DashboardCard>
 
       </div>
     </div>
   );
 };
+
+/* ===== REUSABLE UI COMPONENTS ===== */
+
+const Info = ({ label, value }) => (
+  <div className="bg-white/10 backdrop-blur-md rounded-lg p-3">
+    <p className="text-xs uppercase text-white/70">
+      {label}
+    </p>
+    <p className="font-semibold">
+      {value}
+    </p>
+  </div>
+);
+
+const DashboardCard = ({ children }) => (
+  <div className="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl 
+                  transition transform hover:-translate-y-1">
+    <div className="group-hover:scale-105 transition">
+      {children}
+    </div>
+  </div>
+);
+
+const ActionButton = ({ children, onClick }) => (
+  <button
+    onClick={onClick}
+    className="inline-flex items-center gap-2 text-[#3059b8] 
+               font-semibold hover:text-[#1e3a8a] transition"
+  >
+    {children}
+  </button>
+);
 
 export default UserDashboard;

@@ -31,7 +31,7 @@ const FeaturesBar = () => {
               Secure Payment
             </h4>
             <p className="text-[#6D8196] text-sm">
-              30% off by subscribing
+              30% off by Loging
             </p>
           </div>
         </div>
@@ -61,7 +61,7 @@ const FeaturesBar = () => {
               Daily Offers
             </h4>
             <p className="text-[#6D8196] text-sm">
-              20% off by subscribing
+              20% off by Using Card
             </p>
           </div>
         </div>

@@ -39,48 +39,97 @@ const Navbar = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="">
-        <div className="bg-[#3059b8] text-white text-center py-2 text-sm font-medium">
-        🎉 Flat 30% OFF on All eBooks — Limited Time Only!
+      {/* Top Offer Bar */}
+      <div className="bg-[#3059b8] text-white text-center py-2 text-sm font-medium">
+        Flat 30% OFF on All eBooks — Limited Time Only!
       </div>
-      </div>
-       <div className="">
-        
-    <header className="flex justify-between items-center py-4 shadow container mx-auto px-12">
-     
-      <NavLink to="/">
-        <img src={logo} alt="Logo" className="h-8" />
-      </NavLink>
 
-      <nav className="flex gap-6">
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/all-books">All Books</NavLink>
-        <NavLink to="/blogs">Blogs</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
-      </nav>
+      {/* Main Navbar */}
+      <header className="bg-white shadow-sm">
+        <div className="container mx-auto px-12 py-4 flex justify-between items-center">
 
-      <div className="flex gap-4 items-center">
-        <NavLink to="/cart">Cart ({cartCount})</NavLink>
+          {/* Logo (Zoomed) */}
+          <NavLink to="/" className="flex items-center scale-160  hover:scale-115 transition">
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-12 md:h-14 object-contain hover:scale-105 transition"
+            />
+          </NavLink>
 
-        {isLoggedIn ? (
-          <>
-            <NavLink to="/dashboard">Profile</NavLink>
-            <button
-              onClick={handleLogout}
-              className="text-red-500 hover:underline"
+          {/* Navigation */}
+          <nav className="flex gap-8 text-sm font-medium text-gray-700">
+            <NavLink
+              to="/"
+              className="hover:text-[#3059b8] transition"
             >
-              Logout
-            </button>
-          </>
-        ) : (
-          <NavLink to="/login">Login</NavLink>
-        )}
-      </div>
-    </header>
-       </div>
+              Home
+            </NavLink>
+            <NavLink
+              to="/all-books"
+              className="hover:text-[#3059b8] transition"
+            >
+              All Books
+            </NavLink>
+            <NavLink
+              to="/blogs"
+              className="hover:text-[#3059b8] transition"
+            >
+              Blogs
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="hover:text-[#3059b8] transition"
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className="hover:text-[#3059b8] transition"
+            >
+              Contact
+            </NavLink>
+          </nav>
+
+          {/* Actions */}
+          <div className="flex gap-6 items-center text-sm font-medium">
+            <NavLink
+              to="/cart"
+              className="hover:text-[#3059b8] transition"
+            >
+              Cart
+              <span className="ml-1 text-xs bg-[#3059b8] text-white px-2 py-0.5 rounded-full">
+                {cartCount}
+              </span>
+            </NavLink>
+
+            {isLoggedIn ? (
+              <>
+                <NavLink
+                  to="/dashboard"
+                  className="hover:text-[#3059b8] transition"
+                >
+                  Profile
+                </NavLink>
+                <button
+                  onClick={handleLogout}
+                  className="text-red-500 hover:text-red-600 transition"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <NavLink
+                to="/login"
+                className="hover:text-[#3059b8] transition"
+              >
+                Login
+              </NavLink>
+            )}
+          </div>
+        </div>
+      </header>
     </div>
-   
   );
 };
 

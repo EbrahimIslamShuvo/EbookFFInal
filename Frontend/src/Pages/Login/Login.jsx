@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../config/api";
+import iconImg from "../../assets/LOGO.png"
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -80,7 +81,7 @@ const Login = () => {
         {isLogin && (
           <div className="hidden md:block">
             <img
-              src="/covers/react.jpg"
+              src={iconImg}
               alt="Login"
               className="h-full w-full object-cover"
             />
