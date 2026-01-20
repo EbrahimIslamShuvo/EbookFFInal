@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type RequestHandler } from "express";
 import auth from "../../middlewares/auth";
 import { roleGuard } from "../../middlewares/roleGuard";
 import { upload } from "../../middlewares/upload";
@@ -32,7 +32,7 @@ router.post(
   upload.fields([
     { name: "cover", maxCount: 1 },
     { name: "pdf", maxCount: 1 },
-  ]),
+  ]) as unknown as RequestHandler,
   createBook
 );
 

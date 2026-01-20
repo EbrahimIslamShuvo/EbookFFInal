@@ -237,7 +237,7 @@ Layer 4: Transaction Safety
 ### Ready When You Are
 1. Get production credentials from SSLCommerz
 2. Update `.env` with production values
-3. Set `SSL_MODE=production`
+3. Set `IS_LIVE=production`
 4. Update redirect URLs
 5. Enable HTTPS
 6. Deploy with confidence ✓
@@ -331,7 +331,7 @@ For Status Check?
 
 - [x] SSL_STORE_ID configured
 - [x] SSL_STORE_PASS configured
-- [x] SSL_MODE set to sandbox
+- [x] IS_LIVE set to sandbox
 - [x] CLIENT URLs configured
 - [x] MongoDB connection ready
 - [x] JWT middleware working

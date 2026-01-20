@@ -9,7 +9,7 @@ Your e-book store now has a fully functional payment system integrated with **SS
 ### Backend Enhancements
 
 #### 1. **Configuration** (`Backend/src/config/env.ts`)
-- ✅ Added `SSL_MODE` support (sandbox/production)
+- ✅ Added `IS_LIVE` support (sandbox/production)
 - ✅ Added client redirect URLs for payment status pages
 - ✅ Proper environment variable loading
 
@@ -227,7 +227,7 @@ Before going live:
 
 2. **Update Environment**
    ```env
-   SSL_MODE=production
+   IS_LIVE=production
    CLIENT_SUCCESS_URL=https://yourdomain.com/payment-success
    CLIENT_FAIL_URL=https://yourdomain.com/payment-failed
    CLIENT_CANCEL_URL=https://yourdomain.com/payment-cancel

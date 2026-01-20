@@ -113,7 +113,7 @@ cat Backend/.env | grep SSL
 # Output should show:
 # SSL_STORE_ID=...
 # SSL_STORE_PASS=...
-# SSL_MODE=sandbox
+# IS_LIVE=sandbox
 ```
 
 **2. Start Development**
@@ -177,7 +177,7 @@ SSL_STORE_ID=your_store_id
 SSL_STORE_PASS=your_store_pass
 
 # Optional (defaults configured)
-SSL_MODE=sandbox
+IS_LIVE=sandbox
 CLIENT_SUCCESS_URL=http://localhost:5173/payment-success
 CLIENT_FAIL_URL=http://localhost:5173/payment-failed
 CLIENT_CANCEL_URL=http://localhost:5173/payment-cancel
@@ -247,7 +247,7 @@ db.transactions.aggregate([
 
 2. **Update Configuration**
    ```env
-   SSL_MODE=production
+   IS_LIVE=production
    SSL_STORE_ID=prod_store_id
    SSL_STORE_PASS=prod_store_pass
    CLIENT_SUCCESS_URL=https://yourdomain.com/payment-success

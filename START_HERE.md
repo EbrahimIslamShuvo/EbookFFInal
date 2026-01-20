@@ -40,7 +40,7 @@ Your e-book store has a **complete, production-ready payment system** powered by
 ```bash
 # Check .env has SSL credentials
 cat Backend/.env | grep SSL
-# Should output: SSL_STORE_ID, SSL_STORE_PASS, SSL_MODE=sandbox
+# Should output: SSL_STORE_ID, SSL_STORE_PASS, IS_LIVE=sandbox
 ```
 
 ### 2. Start Servers
@@ -205,7 +205,7 @@ POST /api/payment/cancel        - Cancellation callback (alternative)
 
 2. **Update Configuration**
    ```env
-   SSL_MODE=production
+   IS_LIVE=production
    SSL_STORE_ID=your_production_id
    SSL_STORE_PASS=your_production_pass
    CLIENT_SUCCESS_URL=https://yourdomain.com/payment-success

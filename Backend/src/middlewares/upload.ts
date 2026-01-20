@@ -1,6 +1,5 @@
 import multer from "multer";
 import path from "path";
-import type { Request } from "express";
 
 // 📁 storage config
 const storage = multer.diskStorage({
@@ -21,7 +20,7 @@ const storage = multer.diskStorage({
 
 // ✅ file filter (image + pdf only)
 const fileFilter = (
-  _req: Request,
+  _req: any,
   file: Express.Multer.File,
   cb: multer.FileFilterCallback
 ) => {

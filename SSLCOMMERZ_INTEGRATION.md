@@ -10,7 +10,7 @@ This project has been fully integrated with **SSLCommerz** - Bangladesh's leadin
 - **Environment Variables**: All configured in `.env`
   - `SSL_STORE_ID` - Your SSLCommerz store ID
   - `SSL_STORE_PASS` - Your SSLCommerz store password
-  - `SSL_MODE` - Set to "sandbox" for testing, "production" for live
+  - `IS_LIVE` - Set to "sandbox" for testing, "production" for live
 
 ### ✅ Payment Flow
 
@@ -49,10 +49,10 @@ This project has been fully integrated with **SSLCommerz** - Bangladesh's leadin
 ```
 Backend/src/
 ├── config/
-│   └── env.ts                          # ✅ Added SSL_MODE and CLIENT URLs
+│   └── env.ts                          # ✅ Added IS_LIVE and CLIENT URLs
 ├── modules/payment/
 │   ├── payment.controller.ts           # ✅ Enhanced with validation
-│   ├── payment.service.ts              # ✅ Fixed SSL_MODE usage
+│   ├── payment.service.ts              # ✅ Fixed IS_LIVE usage
 │   ├── payment.interface.ts            # ✅ Added payment types
 │   ├── payment.model.ts                # ✅ Transaction tracking model
 │   └── payment.route.ts                # ✅ All routes configured
@@ -129,7 +129,7 @@ POST /api/payment/cancel
 2. Verify `.env` file has:
    - `SSL_STORE_ID`
    - `SSL_STORE_PASS`
-   - `SSL_MODE=sandbox`
+   - `IS_LIVE=sandbox`
 
 ### Testing Steps
 
@@ -192,7 +192,7 @@ Update your `.env` file with:
 # =====================
 SSL_STORE_ID=your_store_id_here
 SSL_STORE_PASS=your_store_pass_here
-SSL_MODE=sandbox          # Change to 'production' for live
+IS_LIVE=sandbox          # Change to 'production' for live
 
 # =====================
 # Client URLs

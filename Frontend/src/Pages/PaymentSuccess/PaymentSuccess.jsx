@@ -6,7 +6,7 @@ const PaymentSuccess = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/dashboard");
+      navigate("/dashboard/user");
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -40,19 +40,19 @@ const PaymentSuccess = () => {
         </p>
 
         <p className="text-sm text-gray-500 mb-6">
-          Redirecting to your dashboard in 5 seconds...
+          Redirecting to your orders in 5 seconds...
         </p>
 
         <button
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/dashboard/user")}
           className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition duration-200"
         >
-          Go to Dashboard
+          View My Orders
         </button>
 
         <div className="mt-6 pt-6 border-t border-gray-200">
           <p className="text-xs text-gray-500">
-            You can access your purchased books anytime from your dashboard.
+            Your purchased book is now available in your library.
           </p>
         </div>
       </div>

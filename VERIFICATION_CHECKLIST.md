@@ -13,7 +13,7 @@
 ## Backend Implementation Verification
 
 ### Configuration
-- [x] env.ts includes SSL_MODE variable
+- [x] env.ts includes IS_LIVE variable
 - [x] env.ts includes CLIENT_SUCCESS_URL
 - [x] env.ts includes CLIENT_FAIL_URL
 - [x] env.ts includes CLIENT_CANCEL_URL
@@ -245,7 +245,7 @@
 - [x] SSL_STORE_PASS configured
 
 ### Optional Variables
-- [x] SSL_MODE defaults to "sandbox"
+- [x] IS_LIVE defaults to "sandbox"
 - [x] CLIENT_SUCCESS_URL defaults to localhost
 - [x] CLIENT_FAIL_URL defaults to localhost
 - [x] CLIENT_CANCEL_URL defaults to localhost

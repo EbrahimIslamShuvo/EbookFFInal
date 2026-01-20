@@ -29,6 +29,7 @@ app.use(
 app.use("/api/auth", express.json(), authRoutes);
 app.use("/api/users", express.json(), userRoutes);
 app.use("/api/blogs", express.json(), blogRoutes);
+// Payment routes: JSON for POST /init, but allow GET/POST for callbacks (may come with query params)
 app.use("/api/payment", express.json(), paymentRoutes);
 app.use(
   "/api/author-requests",

@@ -26,7 +26,7 @@ SSL_STORE_ID=your_store_id
 SSL_STORE_PASS=your_store_pass
 
 # Optional (defaults provided)
-SSL_MODE=sandbox  # Change to 'production' for live
+IS_LIVE=sandbox  # Change to 'production' for live
 CLIENT_SUCCESS_URL=http://localhost:5173/payment-success
 CLIENT_FAIL_URL=http://localhost:5173/payment-failed
 CLIENT_CANCEL_URL=http://localhost:5173/payment-cancel
@@ -230,7 +230,7 @@ npm run dev
 ## Production Checklist
 
 - [ ] Update SSL credentials to production
-- [ ] Set SSL_MODE=production
+- [ ] Set IS_LIVE=production
 - [ ] Update all URLs to use domain
 - [ ] Enable HTTPS
 - [ ] Test with real payment

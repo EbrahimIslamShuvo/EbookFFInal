@@ -8,7 +8,7 @@ Check your `.env` file in the Backend folder:
 ```env
 SSL_STORE_ID=your_store_id
 SSL_STORE_PASS=your_store_pass
-SSL_MODE=sandbox  # For testing
+IS_LIVE=sandbox  # For testing
 ```
 
 Get these from your SSLCommerz merchant account.
@@ -128,7 +128,7 @@ Before going live with real payments:
 
 2. **Update Environment**
    ```env
-   SSL_MODE=production
+   IS_LIVE=production
    ```
 
 3. **Update URLs**
