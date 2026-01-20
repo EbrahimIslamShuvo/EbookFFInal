@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
   getCartList,
@@ -6,6 +6,7 @@ import {
 } from "../../Data/addToCartList";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState(getCartList());
 
   // 🔥 Remove item from cart
@@ -15,6 +16,11 @@ const Cart = () => {
 
     // notify navbar to update count
     window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+  // 💳 Checkout single item
+  const handleCheckout = (book) => {
+    navigate("/checkout", { state: { book } });
   };
 
   // 🧮 Total price
@@ -87,13 +93,21 @@ const Cart = () => {
                 ৳ {book.price}
               </p>
 
-              {/* Remove */}
-              <button
-                onClick={() => handleRemove(bookId)}
-                className="text-red-500 hover:underline"
-              >
-                Remove
-              </button>
+              {/* Actions */}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleCheckout(book)}
+                  className="bg-[#3059b8] text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                >
+                  Buy Now
+                </button>
+                <button
+                  onClick={() => handleRemove(bookId)}
+                  className="text-red-500 hover:underline"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           );
         })}
@@ -109,7 +123,7 @@ const Cart = () => {
         </p>
 
         <NavLink to="/checkout">
-          <button className="bg-[#3059b8] text-white px-8 py-2 rounded">
+          <button className="bg-[#3059b8] text-white px-8 py-2 rounded hover:bg-blue-700 transition">
             Proceed to Checkout
           </button>
         </NavLink>

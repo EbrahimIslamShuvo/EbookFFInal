@@ -25,6 +25,10 @@ const userSchema = new Schema<IUser>(
       type: Boolean,
       default: true,
     },
+    purchasedBooks: {
+      type: [String],
+      default: [],
+    },
   },
   { timestamps: true }
 );

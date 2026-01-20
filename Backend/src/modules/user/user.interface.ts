@@ -6,6 +6,7 @@ export interface IUser {
   password: string;
   role: UserRole;
   isActive: boolean;
+  purchasedBooks?: string[];
 }
 
 

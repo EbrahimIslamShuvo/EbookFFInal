@@ -13,6 +13,9 @@ import SingleBlog from "../Pages/Blog/Component/SingleBlog";
 import Cart from "../Pages/Cart/Cart";
 import Checkout from "../Pages/Checkout/Checkout";
 import Login from "../Pages/Login/Login";
+import PaymentSuccess from "../Pages/PaymentSuccess/PaymentSuccess";
+import PaymentFailed from "../Pages/PaymentFailed/PaymentFailed";
+import PaymentCancel from "../Pages/PaymentCancel/PaymentCancel";
 
 // Dashboard
 import DashboardLayout from "../Pages/Dashboard/DashboardLayout";
@@ -44,6 +47,9 @@ const router = createBrowserRouter([
       { path: "cart", element: <Cart /> },
       { path: "checkout", element: <Checkout /> },
       { path: "login", element: <Login /> },
+      { path: "payment-success", element: <PaymentSuccess /> },
+      { path: "payment-failed", element: <PaymentFailed /> },
+      { path: "payment-cancel", element: <PaymentCancel /> },
 
       // 🔐 MAIN DASHBOARD
       {
