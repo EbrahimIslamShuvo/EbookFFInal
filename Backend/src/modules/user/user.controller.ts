@@ -1,6 +1,7 @@
 import { Response } from "express";
 import asyncHandler from "../../middlewares/asyncHandler";
 import { UserService } from "./user.service";
+import { Book } from "../book/book.model";
 
 // create user
 export const createUser = asyncHandler(async (req: any, res: Response) => {
@@ -52,6 +53,24 @@ export const toggleUserStatus = asyncHandler(
     res.json({
       success: true,
       data: user,
+    });
+  }
+);
+
+
+export const getMyLibrary = asyncHandler(
+  async (req: any, res: Response) => {
+    const userId = req.user.userId;
+
+    // 🔥 books where userId is in buyers[]
+    const books = await Book.find({
+      buyers: userId,
+      status: "active",
+    }).populate("authorId", "name");
+
+    res.json({
+      success: true,
+      data: books,
     });
   }
 );

@@ -9,11 +9,6 @@ const createBlog = async (payload: IBlog) => {
   return Blog.create(payload);
 };
 
-// 🌍 public → only active blogs
-const getActiveBlogs = async () => {
-  return Blog.find({ status: "active" }).sort({ createdAt: -1 });
-};
-
 // 🔐 admin → all blogs
 const getAllBlogs = async () => {
   return Blog.find().sort({ createdAt: -1 });
@@ -55,11 +50,6 @@ const deleteBlog = async (id: string) => {
   }
 };
 
-// ✍️ get blogs by user / author
-const getBlogsByAuthor = async (authorId: string) => {
-  return Blog.find({ authorId }).sort({ createdAt: -1 });
-};
-
 export const getAllBlogsAdmin = asyncHandler(
   async (_req: any, res: Response) => {
     const blogs = await BlogService.getAllBlogs();
@@ -67,9 +57,24 @@ export const getAllBlogsAdmin = asyncHandler(
   }
 );
 
+// 🌍 public → only active blogs
+const getActiveBlogs = async () => {
+  return Blog.find({ status: "active" })
+    .populate("authorId", "name email") // 🔥 ADD
+    .sort({ createdAt: -1 });
+};
+
+// ✍️ get blogs by user / author
+const getBlogsByAuthor = async (authorId: string) => {
+  return Blog.find({ authorId })
+    .populate("authorId", "name email") // 🔥 ADD
+    .sort({ createdAt: -1 });
+};
+
 // 📘 get single blog by id
 const getBlogById = async (id: string) => {
-  const blog = await Blog.findById(id);
+  const blog = await Blog.findById(id)
+    .populate("authorId", "name email"); // 🔥 ADD
 
   if (!blog) {
     throw new ApiError(404, "Blog not found");
@@ -77,8 +82,6 @@ const getBlogById = async (id: string) => {
 
   return blog;
 };
-
-
 
 
 export const BlogService = {

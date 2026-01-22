@@ -9,6 +9,7 @@ import blogRoutes from "./modules/blog/blog.route";
 import bookRoutes from "./modules/book/book.route";
 import paymentRoutes from "./modules/payment/payment.route";
 import authorRequestRoutes from "./modules/authorRequest/authorRequest.route";
+import { purchaseRoutes } from "./modules/purchase/purchase.route";
 
 const app = express();
 
@@ -48,5 +49,7 @@ app.use(
 
 // ✅ GLOBAL ERROR HANDLER (LAST)
 app.use(errorHandler);
+
+app.use("/api/purchases", purchaseRoutes);
 
 export default app;

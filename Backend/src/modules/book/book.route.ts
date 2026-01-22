@@ -6,25 +6,40 @@ import {
   createBook,
   getBooks,
   getAllBooksAdmin,
+  getMyBooks,
+  getSingleBook,
   toggleBookStatus,
   deleteBook,
-  getMyBooks,
+  getRelatedBooks,
+  getBooksByAuthorPublic,
+  getMyPurchasedBooks,
 } from "./book.controller";
 
 const router = Router();
 
-// 🌍 Public
+/* ============ 🌍 PUBLIC ============ */
+
+// all active books
 router.get("/", getBooks);
 
-// 🔐 Admin
+// books by author (PUBLIC) — ⚠️ MUST be before :id
+router.get("/author/:authorId", getBooksByAuthorPublic);
+
+// related books
+router.get("/related/list", getRelatedBooks);
+
+// single book
+router.get("/:id", getSingleBook);
+
+/* ============ ✍️ AUTHOR ============ */
+
 router.get(
-  "/admin/all",
+  "/author/my",
   auth,
-  roleGuard("admin"),
-  getAllBooksAdmin
+  roleGuard("author"),
+  getMyBooks
 );
 
-// ✍️ Author upload
 router.post(
   "/",
   auth,
@@ -36,33 +51,28 @@ router.post(
   createBook
 );
 
-// 🔐 Admin toggle
-router.patch(
-  "/:id/toggle-status",
-  auth,
-  roleGuard("admin"),
-  toggleBookStatus
-);
+/* ============ 🔐 ADMIN ============ */
 
-router.patch(
-  "/:id/toggle-status",
-  auth,
-  roleGuard("admin"),
-  toggleBookStatus
-);
-
-router.delete(
-  "/:id",
-  auth,
-  deleteBook
-);
-
-// book.route.ts
 router.get(
-  "/author/my",
+  "/admin/all",
   auth,
-  roleGuard("author"),
-  getMyBooks
+  roleGuard("admin"),
+  getAllBooksAdmin
+);
+
+router.patch(
+  "/:id/toggle-status",
+  auth,
+  roleGuard("admin"),
+  toggleBookStatus
+);
+
+router.delete("/:id", auth, deleteBook);
+
+router.get(
+  "/purchased/my",
+  auth,
+  getMyPurchasedBooks
 );
 
 

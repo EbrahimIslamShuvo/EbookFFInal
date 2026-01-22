@@ -1,16 +1,50 @@
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import useBook from "../../../Data/useBook";
+import BookCard from "../../../Component/Shared/BookCard";
 import { addToCartList } from "../../../Data/addToCartList";
 
 const SingleBook = () => {
   const { id } = useParams();
-  const { getBookById } = useBook();
+  const { getBookById, getRelatedBooks } = useBook();
 
-  const book = getBookById(id);
+  const [book, setBook] = useState(null);
+  const [related, setRelated] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadBook = async () => {
+      setLoading(true);
+
+      const data = await getBookById(id);
+      setBook(data);
+
+      if (data) {
+        const relatedBooks = await getRelatedBooks(
+          data.category,
+          data.authorId?._id,
+          data._id
+        );
+        setRelated(relatedBooks);
+      }
+
+      setLoading(false);
+    };
+
+    loadBook();
+  }, [id, getBookById, getRelatedBooks]);
+
+  if (loading) {
+    return (
+      <p className="text-center py-20 text-gray-500">
+        Loading book...
+      </p>
+    );
+  }
 
   if (!book) {
     return (
-      <p className="text-center py-20 text-gray-500">
+      <p className="text-center py-20 text-red-500">
         Book not found
       </p>
     );
@@ -18,64 +52,67 @@ const SingleBook = () => {
 
   return (
     <section className="bg-[#f2f7fb] py-16">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-14">
 
-        {/* 📘 Book Cover (Sticky) */}
-        <div className="sticky top-24 flex justify-center">
-          <img
-            src={`http://localhost:3000${book.cover}`}
-            alt={book.title}
-            className="w-[340px] h-[480px] object-cover rounded-2xl shadow-2xl"
-            onError={(e) => {
-              e.target.src =
-                "https://via.placeholder.com/400x600?text=No+Cover";
-            }}
-          />
-        </div>
+        {/* 📘 COVER */}
+        <img
+          src={`http://localhost:3000${book.cover}`}
+          alt={book.title}
+          className="w-full max-w-sm mx-auto rounded-xl shadow-xl"
+        />
 
-        {/* 📕 Book Details */}
-        <div className="space-y-6">
-
-          {/* Title */}
-          <h1 className="text-4xl font-extrabold text-[#000080] leading-tight">
+        {/* 📕 INFO */}
+        <div className="space-y-5">
+          <h1 className="text-4xl font-bold text-[#000080]">
             {book.title}
           </h1>
 
-          {/* Meta */}
-          <div className="flex items-center gap-4 text-sm">
-            <span className="bg-[#82C8E5]/30 text-[#0047AB] px-4 py-1 rounded-full font-semibold">
-              {book.category}
-            </span>
-          </div>
+          <p className="text-sm text-gray-600">
+            Category: <span className="font-semibold">{book.category}</span>
+          </p>
 
-          {/* Description */}
-          <p className="text-[#6D8196] leading-relaxed max-w-xl">
+          {/* ✅ AUTHOR NAME FIX */}
+          <p className="text-sm text-gray-600">
+            Author:{" "}
+            <span className="font-semibold">
+              {book.authorId?.name || "Unknown"}
+            </span>
+          </p>
+
+          <p className="text-gray-700 leading-relaxed">
             {book.abstract}
           </p>
 
-          {/* Price */}
           <p className="text-3xl font-bold text-[#0047AB]">
             ৳ {book.price}
           </p>
 
-          {/* 🛒 Add to Cart */}
           <button
             onClick={() => {
               addToCartList(book);
               window.dispatchEvent(new Event("cartUpdated"));
             }}
-            className="inline-flex items-center justify-center
-                       bg-[#0047AB] text-white
-                       px-10 py-3 rounded-full
-                       font-semibold text-lg
-                       hover:bg-[#000080]
-                       transition shadow-lg hover:shadow-xl"
+            className="bg-[#0047AB] text-white px-8 py-3 rounded-full hover:bg-[#000080]"
           >
             Add to Cart
           </button>
-
         </div>
       </div>
+
+      {/* 🔁 RELATED BOOKS */}
+      {related.length > 0 && (
+        <div className="max-w-6xl mx-auto px-6 mt-20">
+          <h2 className="text-2xl font-bold mb-6">
+            Related Books
+          </h2>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {related.map((b) => (
+              <BookCard key={b._id} book={b} />
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -1,8 +1,3 @@
-export interface IPaymentInit {
-  amount: number;
-  bookId: string;
-  userId: string;
-}
 
 export interface IPaymentData {
   total_amount: number;
@@ -20,12 +15,19 @@ export interface IPaymentData {
   cus_phone?: string;
 }
 
+export interface IPaymentInit {
+  amount: number;
+  bookIds: string[];
+  userId: string;
+}
+
 export interface ITransactionRecord {
   userId: string;
-  bookId: string;
+  bookIds: string[];
   amount: number;
   transactionId: string;
   status: "pending" | "success" | "failed" | "cancelled";
   createdAt: Date;
   updatedAt: Date;
 }
+

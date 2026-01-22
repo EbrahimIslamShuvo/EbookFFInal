@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useBlog from "../../../Data/useBlog";
 
 const SingleBlog = () => {
-  const { id } = useParams(); // ⚠️ must be "id"
+  const { id } = useParams();
   const { getBlogById } = useBlog();
 
   const [blog, setBlog] = useState(null);
@@ -38,7 +38,7 @@ const SingleBlog = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
-      {/* 🖼 Blog Image */}
+      {/* 🖼 Image */}
       {blog.image && (
         <img
           src={
@@ -52,9 +52,17 @@ const SingleBlog = () => {
       )}
 
       {/* 📝 Title */}
-      <h1 className="text-3xl font-bold mb-4 text-gray-800">
+      <h1 className="text-3xl font-bold mb-2 text-gray-800">
         {blog.title}
       </h1>
+
+      {/* 👤 Author */}
+      <p className="text-sm text-gray-500 mb-6">
+        by{" "}
+        <span className="font-semibold">
+          {blog.authorId?.name || "Unknown Author"}
+        </span>
+      </p>
 
       {/* 📄 Description */}
       <p className="text-gray-600 leading-relaxed">

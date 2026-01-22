@@ -1,61 +1,28 @@
 import { useEffect } from "react";
+import { clearCartList } from "../../Data/addToCartList";
 import { useNavigate } from "react-router-dom";
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigate("/dashboard/user");
-    }, 5000);
+    // 🔥 clear cart after successful payment
+    clearCartList();
 
-    return () => clearTimeout(timer);
+    // optional: redirect after 2s
+    setTimeout(() => {
+      navigate("localhost:5173");
+    }, 5000);
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100">
-      <div className="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full text-center">
-        <div className="mb-6">
-          <svg
-            className="w-24 h-24 mx-auto text-green-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
-
-        <h1 className="text-3xl font-bold text-green-600 mb-2">
-          Payment Successful!
-        </h1>
-
-        <p className="text-gray-600 mb-2">
-          Thank you for your purchase. Your book has been added to your library.
-        </p>
-
-        <p className="text-sm text-gray-500 mb-6">
-          Redirecting to your orders in 5 seconds...
-        </p>
-
-        <button
-          onClick={() => navigate("/dashboard/user")}
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition duration-200"
-        >
-          View My Orders
-        </button>
-
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <p className="text-xs text-gray-500">
-            Your purchased book is now available in your library.
-          </p>
-        </div>
-      </div>
+    <div className="max-w-xl mx-auto py-20 text-center">
+      <h2 className="text-3xl font-bold text-green-600 mb-4">
+        Payment Successful 🎉
+      </h2>
+      <p className="text-gray-600">
+        Your books are now available in My Library
+      </p>
     </div>
   );
 };

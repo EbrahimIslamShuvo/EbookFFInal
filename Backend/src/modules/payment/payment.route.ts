@@ -9,10 +9,8 @@ import {
 
 const router = Router();
 
-// 🔐 user starts payment
 router.post("/init", auth, initPayment);
 
-// 🔓 SSLCommerz callbacks (no auth) - Both POST and GET for compatibility
 router.get("/success", paymentSuccess);
 router.post("/success", paymentSuccess);
 

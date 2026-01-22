@@ -1,7 +1,9 @@
+import { Types } from "mongoose";
+
 export interface IBlog {
   title: string;
   description: string;
   image?: string;
-  authorId: string; // user or author id
+  authorId: Types.ObjectId;   // 🔥 FIX
   status: "pending" | "active";
 }

@@ -3,7 +3,8 @@ import {
   getAllUsers,
   getUserById,
   updateUserRole,
-  toggleUserStatus
+  toggleUserStatus,
+  getMyLibrary
 } from "./user.controller";
 import auth from "../../middlewares/auth";
 import { roleGuard } from "../../middlewares/roleGuard";
@@ -39,6 +40,12 @@ router.patch(
   auth,
   roleGuard("admin"),
   toggleUserStatus
+);
+
+router.get(
+  "/my-library",
+  auth,
+  getMyLibrary
 );
 
 

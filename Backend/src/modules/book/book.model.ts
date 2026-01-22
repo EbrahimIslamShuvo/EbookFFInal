@@ -9,12 +9,20 @@ const bookSchema = new Schema<IBook>(
     price: { type: Number, required: true },
     cover: { type: String, required: true },
     pdfUrl: { type: String, required: true },
-    authorId: { type: String, required: true },
+
+    // 🔥 User reference
+    authorId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     status: {
       type: String,
       enum: ["pending", "active"],
       default: "pending",
     },
+
     buyers: {
       type: [String],
       default: [],

@@ -14,10 +14,14 @@ const blogSchema = new Schema<IBlog>(
     image: {
       type: String,
     },
+
+    // 🔥 FIXED: User reference
     authorId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
+
     status: {
       type: String,
       enum: ["pending", "active"],

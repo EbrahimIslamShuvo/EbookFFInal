@@ -1,4 +1,5 @@
 const CART_KEY = "cart";
+const PURCHASED_KEY = "purchasedBooks";
 
 // 🔹 helper: normalize book id
 const getBookId = (book) => book._id || book.id;
@@ -8,22 +9,37 @@ export const getCartList = () => {
   return JSON.parse(localStorage.getItem(CART_KEY)) || [];
 };
 
-// add to cart (NO DUPLICATE)
+// get purchased book ids
+const getPurchasedIds = () => {
+  return JSON.parse(
+    localStorage.getItem(PURCHASED_KEY)
+  ) || [];
+};
+
+// add to cart
 export const addToCartList = (book) => {
   const cart = getCartList();
+  const purchasedIds = getPurchasedIds();
 
   const bookId = getBookId(book);
 
+  // ❌ already purchased
+  if (purchasedIds.includes(bookId)) {
+    alert("You already purchased this book 📚");
+    return;
+  }
+
+  // ❌ already in cart
   const exists = cart.find(
     (item) => (item._id || item.id) === bookId
   );
 
   if (exists) {
-    alert("This book is already in cart!");
+    alert("This book is already in your cart");
     return;
   }
 
-  // 🔥 normalize id while saving
+  // ✅ normalize & add
   const normalizedBook = {
     ...book,
     _id: bookId,

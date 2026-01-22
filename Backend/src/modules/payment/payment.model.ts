@@ -1,19 +1,33 @@
-import { Schema, model } from "mongoose";
-import type { ITransactionRecord } from "./payment.interface";
 
-const transactionSchema = new Schema<ITransactionRecord>(
+import { Schema, model, Types } from "mongoose";
+
+const purchaseSchema = new Schema(
   {
-    userId: { type: String, required: true },
-    bookId: { type: String, required: true },
-    amount: { type: Number, required: true },
-    transactionId: { type: String, required: true, unique: true },
+    userId: {
+      type: Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    bookId: {
+      type: Types.ObjectId,
+      ref: "Book",
+      required: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+    transactionId: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
-      enum: ["pending", "success", "failed", "cancelled"],
-      default: "pending",
+      enum: ["success", "failed", "cancelled"],
+      default: "success",
     },
   },
   { timestamps: true }
 );
 
-export const Transaction = model<ITransactionRecord>("Transaction", transactionSchema);
+export const Purchase = model("Purchase", purchaseSchema);

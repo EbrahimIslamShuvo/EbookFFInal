@@ -31,6 +31,8 @@ import MyLibrary from "../Pages/Dashboard/Author/MyLibrary";
 import MyBooks from "../Pages/Dashboard/Author/MyBook";
 import NewBook from "../Pages/Dashboard/Author/NewBook";
 import MyBlogs from "../Pages/Dashboard/Author/MyBlog";
+import SingleAuthor from "../Pages/AllBook/Component/SingleAuthor";
+import UserMyLibrary from "../Pages/Dashboard/User/UserMyLibrary";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,10 @@ const router = createBrowserRouter([
       { path: "payment-success", element: <PaymentSuccess /> },
       { path: "payment-failed", element: <PaymentFailed /> },
       { path: "payment-cancel", element: <PaymentCancel /> },
+      {
+        path: "/authors/:authorId",
+        element: <SingleAuthor />,
+      },
 
       // 🔐 MAIN DASHBOARD
       {
@@ -67,6 +73,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <UserDashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "dashboard/user/library",
+        element: (
+          <ProtectedRoute>
+            <UserMyLibrary />
           </ProtectedRoute>
         ),
       },
@@ -120,7 +134,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/author/library",
+        path: "dashboard/author/library",
         element: (
           <ProtectedRoute>
             <MyLibrary />

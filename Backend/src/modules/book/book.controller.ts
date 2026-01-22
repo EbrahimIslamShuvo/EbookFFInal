@@ -2,10 +2,11 @@ import type { Response } from "express";
 import asyncHandler from "../../middlewares/asyncHandler";
 import ApiError from "../../utils/ApiError";
 import { BookService } from "./book.service";
+import { Types } from "mongoose";
+import { Book } from "./book.model";
+import { PurchaseService } from "../purchase/purchase.service";
 
-/**
- * 🔐 Author → Create Book (with cover + pdf)
- */
+
 export const createBook = asyncHandler(
   async (req: any, res: Response) => {
     const { title, abstract, category, price } = req.body;
@@ -24,7 +25,10 @@ export const createBook = asyncHandler(
       price: Number(price),
       cover: `/uploads/${coverFile.filename}`,
       pdfUrl: `/uploads/${pdfFile.filename}`,
-      authorId: req.user.userId,
+
+      // 🔥 THIS IS CRITICAL
+      authorId: new Types.ObjectId(req.user.userId),
+
       status: "pending",
       buyers: [],
     });
@@ -36,73 +40,96 @@ export const createBook = asyncHandler(
   }
 );
 
-/**
- * 🌍 Public → Active books only
- */
-export const getBooks = asyncHandler(
-  async (_req: any, res: Response) => {
-    const books = await BookService.getActiveBooks();
-    res.json({
-      success: true,
-      data: books,
-    });
-  }
-);
+// 🌍 public
+export const getBooks = asyncHandler(async (_req: any, res: Response) => {
+  const books = await BookService.getActiveBooks();
+  res.json({ success: true, data: books });
+});
 
-/**
- * 🔐 Admin → All books (active + pending)
- */
-export const getAllBooksAdmin = asyncHandler(
-  async (_req: any, res: Response) => {
-    const books = await BookService.getAllBooks();
-    res.json({
-      success: true,
-      data: books,
-    });
-  }
-);
+// 🔐 admin
+export const getAllBooksAdmin = asyncHandler(async (_req: any, res: Response) => {
+  const books = await BookService.getAllBooks();
+  res.json({ success: true, data: books });
+});
 
-/**
- * 🔁 Admin → Toggle book status (active <-> pending)
- */
-export const toggleBookStatus = asyncHandler(
+// ✍️ author → my books
+export const getMyBooks = asyncHandler(async (req: any, res: Response) => {
+  const books = await BookService.getBooksByAuthor(
+    req.user.userId
+  );
+  res.json({ success: true, data: books });
+});
+
+// 📘 single book
+export const getSingleBook = asyncHandler(async (req: any, res: Response) => {
+  const book = await BookService.getSingleBook(req.params.id);
+  res.json({ success: true, data: book });
+});
+
+// 🔁 toggle
+export const toggleBookStatus = asyncHandler(async (req: any, res: Response) => {
+  const book = await BookService.toggleBookStatus(req.params.id);
+  res.json({ success: true, data: book });
+});
+
+// ❌ delete
+export const deleteBook = asyncHandler(async (req: any, res: Response) => {
+  await BookService.deleteBook(req.params.id);
+  res.json({ success: true });
+});
+
+// 🔗 related
+export const getRelatedBooks = asyncHandler(async (req: any, res: Response) => {
+  const { category, authorId, excludeId } = req.query;
+
+  const books = await BookService.getRelatedBooks(
+    category as string,
+    authorId as string,
+    excludeId as string
+  );
+
+  res.json({ success: true, data: books });
+});
+
+export const getBooksByAuthor = asyncHandler(
   async (req: any, res: Response) => {
-    const book = await BookService.toggleBookStatus(
-      req.params.id
+    const books = await BookService.getBooksByAuthor(
+      req.params.authorId
     );
 
     res.json({
       success: true,
-      data: book,
+      data: books,
     });
   }
 );
-
-/**
- * ❌ Admin / Author → Delete book
- */
-export const deleteBook = asyncHandler(
+// 🌍 PUBLIC → books by author
+export const getBooksByAuthorPublic = asyncHandler(
   async (req: any, res: Response) => {
-    await BookService.deleteBook(req.params.id);
-
-    res.json({
-      success: true,
-      message: "Book deleted successfully",
-    });
-  }
-);
-
-// 🔐 AUTHOR → get own books
-export const getMyBooks = asyncHandler(
-  async (req: any, res: Response) => {
-    const authorId = req.user.userId; // 🔥 JWT থেকে
+    const { authorId } = req.params;
 
     const books =
-      await BookService.getBooksByAuthor(authorId);
+      await BookService.getBooksByAuthorPublic(authorId);
 
     res.json({
       success: true,
       data: books,
+    });
+  }
+);
+
+export const getMyPurchasedBooks = asyncHandler(
+  async (req: any, res: Response) => {
+    const userId = req.user.userId;
+
+    const purchases =
+      await PurchaseService.getPurchasedBooksByUser(
+        userId
+      );
+
+    res.json({
+      success: true,
+      data: purchases,
     });
   }
 );

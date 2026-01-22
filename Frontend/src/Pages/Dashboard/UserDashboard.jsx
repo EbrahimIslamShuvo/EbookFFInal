@@ -27,8 +27,12 @@ const UserDashboard = () => {
       } else {
         alert(data.message || "Already applied");
       }
-    } catch (_) {
+    } catch (error) {
       alert("Failed to apply as author");
+      console.log(
+        error
+      );
+
     }
   };
 
@@ -64,7 +68,9 @@ const UserDashboard = () => {
           <p className="text-gray-600 mb-6">
             Access all the books you have purchased in one place.
           </p>
-          <ActionButton onClick={() => navigate("/library")}>
+          <ActionButton
+            onClick={() => navigate("/dashboard/user/library")}
+          >
             View Books →
           </ActionButton>
         </DashboardCard>
