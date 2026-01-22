@@ -164,8 +164,6 @@ export const paymentFail = asyncHandler(async (_req: any, res: Response) => {
 });
 
 /* ===================== CANCEL ===================== */
-/* ===================== CANCEL ===================== */
-/* ===================== CANCEL ===================== */
 
 export const paymentCancel = asyncHandler(async (_req: any, res: Response) => {
   return res.redirect(env.CLIENT_CANCEL_URL);
